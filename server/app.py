@@ -1,15 +1,18 @@
+""" Primary application controller """
+
 from flask import Flask
 from flask_cors import CORS
-from api.users import users
+from server.api.users import USERS
 
-app = Flask(__name__)
-app.register_blueprint(users)
-CORS(app) # TODO add CORS specificity
+APP = Flask(__name__)
+APP.register_blueprint(USERS)
+CORS(APP) # TODO add CORS specificity
 
-@app.route("/")
+@APP.route("/")
 def hello():
+    """Sample hello world output"""
     return "Hello World!"
 
 if __name__ == "__main__":
-    app.run()
+    APP.run()
 

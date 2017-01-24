@@ -1,7 +1,11 @@
+"""Users table model"""
+
 from flask import Blueprint
 
-users = Blueprint('users', __name__)
+USERS = Blueprint('users', __name__)
 
-@users.route('/api/users')
+@USERS.route('/api/users')
 def get():
-    return "hello world!"
+    """Handles a read operation on users table"""
+    output = 2 + 5
+    return str(output)
