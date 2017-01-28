@@ -2,11 +2,16 @@
 
 from flask import Flask
 from flask_cors import CORS
-from server.api.users import USERS
+from users import USERS
+from db import DB
 
 APP = Flask(__name__)
+APP.config.from_object('config')
+
 APP.register_blueprint(USERS)
 CORS(APP) # TODO add CORS specificity
+
+DB.init_app(APP)
 
 @APP.route("/")
 def hello():
