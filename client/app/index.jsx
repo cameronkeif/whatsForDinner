@@ -1,13 +1,13 @@
 import React from 'react';
 import cookie from 'react-cookie';
 import { render } from 'react-dom';
+
 import Login from './components/Login';
+import Overview from './components/Overview'
 import css from '../assets/stylesheets/styles.less';
 
 if (cookie.load('whatsForDinnerSessionCookie')) {
-  // Render the page
-  console.log("logged in!");
+    render(<Overview />, document.getElementById('app'));
 } else {
-    console.log('Not logged in')
     render(<Login />, document.getElementById('app'));
 }

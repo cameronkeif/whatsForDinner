@@ -1,5 +1,8 @@
 import React from 'react';
 import request from 'then-request';
+import { render } from 'react-dom';
+
+import Overview from './Overview';
 
 const loginSubmit = () => {
     const invalidLoginNotification = document.getElementById('invalid-login-notification');
@@ -11,7 +14,7 @@ const loginSubmit = () => {
     request('GET', '../api/users/authenticate', options).done((res) => {
         const response = JSON.parse(res.getBody());
         if (response.result === 'success') {
-          console.log("yay!");
+            render(<Overview />, document.getElementById('app'));
         } else {
             invalidLoginNotification.style.display = 'block';
         }
