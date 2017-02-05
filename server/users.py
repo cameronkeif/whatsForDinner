@@ -16,12 +16,19 @@ USERS = Blueprint('users', __name__)
 def get():
     """Handles a read operation on users table"""
     status = 'failed'
+    if not request.args:
+        return jsonify({'result': status})
+        
     email = request.args.get('email')
     password = request.args.get('password')
     user = User.query.filter_by(email=email).first()
     if user and bcrypt.hashpw(password.encode('utf-8'), user.password.encode('utf-8')) == user.password:
         status = 'success' # User exists and the password matches
-    return jsonify({'result': status})
+    
+    response = jsonify({'result': status})
+    if status == 'success':
+        response.set_cookie('whatsForDinnerSessionCookie', user.email)
+    return response
 
 @USERS.route('/api/users/register', methods = ['POST'])
 def register_user():
